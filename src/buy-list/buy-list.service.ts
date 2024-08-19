@@ -1,26 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBuyListInput } from './dto/create-buy-list.input';
 import { UpdateBuyListInput } from './dto/update-buy-list.input';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { BuyList } from '@prisma/client';
 
 @Injectable()
 export class BuyListService {
-  create(createBuyListInput: CreateBuyListInput) {
-    return 'This action adds a new buyList';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createBuyListInput: CreateBuyListInput): Promise<BuyList> {
+    const { name } = createBuyListInput;
+    return this.prisma.buyList.create({
+      data: { name },
+    });
   }
 
-  findAll() {
-    return `This action returns all buyList`;
+  async findAll(): Promise<BuyList[]> {
+    return this.prisma.buyList.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} buyList`;
+  async findOne(id: number): Promise<BuyList | null> {
+    return this.prisma.buyList.findUnique({
+      where: { id },
+    });
   }
 
-  update(id: number, updateBuyListInput: UpdateBuyListInput) {
-    return `This action updates a #${id} buyList`;
+  async update(id: number, updateBuyListInput: UpdateBuyListInput): Promise<BuyList> {
+    const { name } = updateBuyListInput;
+    return this.prisma.buyList.update({
+      where: { id },
+      data: { name },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} buyList`;
+  async remove(id: number): Promise<BuyList> {
+    return this.prisma.buyList.delete({
+      where: { id },
+    });
   }
 }

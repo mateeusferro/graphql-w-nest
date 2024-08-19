@@ -1,24 +1,27 @@
 type BuyList {
-  # Example field (placeholder)
-  exampleField: Int
+  id: Int!
+  name: String!
+  items: Items[]
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
 }
 
 input CreateBuyListInput {
-  # Example field (placeholder)
-  exampleField: Int
+  name: String!
 }
 
 input UpdateBuyListInput {
   id: Int!
+  name: String!
 }
 
 type Query {
-  buyList: [BuyList]!
-  buyList(id: Int!): BuyList
+  buyList: [String]!
+  buyList(id: Int!): String
 }
 
 type Mutation {
   createBuyList(createBuyListInput: CreateBuyListInput!): BuyList!
   updateBuyList(updateBuyListInput: UpdateBuyListInput!): BuyList!
-  removeBuyList(id: Int!): BuyList
+  removeBuyList(id: Int!): String
 }

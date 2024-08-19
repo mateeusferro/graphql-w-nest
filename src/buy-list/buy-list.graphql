@@ -1,0 +1,24 @@
+type BuyList {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input CreateBuyListInput {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input UpdateBuyListInput {
+  id: Int!
+}
+
+type Query {
+  buyList: [BuyList]!
+  buyList(id: Int!): BuyList
+}
+
+type Mutation {
+  createBuyList(createBuyListInput: CreateBuyListInput!): BuyList!
+  updateBuyList(updateBuyListInput: UpdateBuyListInput!): BuyList!
+  removeBuyList(id: Int!): BuyList
+}

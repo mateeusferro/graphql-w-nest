@@ -1,24 +1,38 @@
 type Item {
-  # Example field (placeholder)
-  exampleField: Int
+  id: Int!
+  name: String!
+  quantity: Int!
+  category: String!
+  status: Boolean
+  buyListId: Int!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
 }
 
 input CreateItemInput {
-  # Example field (placeholder)
-  exampleField: Int
+  name: String!
+  quantity: Int!
+  category: String!
+  status: Boolean
+  buyListId: Int!
 }
 
 input UpdateItemInput {
   id: Int!
+  name: String
+  quantity: Int
+  category: String
+  status: Boolean
+  buyListId: Int
 }
 
 type Query {
-  items: [Item]!
-  item(id: Int!): Item
+  items: [String]!
+  item(id: Int!): String
 }
 
 type Mutation {
   createItem(createItemInput: CreateItemInput!): Item!
   updateItem(updateItemInput: UpdateItemInput!): Item!
-  removeItem(id: Int!): Item
+  removeItem(id: Int!): String
 }

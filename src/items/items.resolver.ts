@@ -8,27 +8,27 @@ import { Item } from './entities/item.entity';
 export class ItemsResolver {
   constructor(private readonly itemsService: ItemsService) {}
 
-  @Mutation(() => Item, { name: 'createItem' })
+  @Mutation(() => Item, { name: 'createItem', nullable: true })
   async create(@Args('createItemInput') createItemInput: CreateItemInput) {
     return await this.itemsService.create(createItemInput);
   }
 
-  @Query(() => [Item], { name: 'findAllItems' })
+  @Query(() => [Item], { name: 'findAllItems', nullable: true })
   async findAll() {
     return await this.itemsService.findAll();
   }
 
-  @Query(() => Item, { name: 'findOneItem' })
+  @Query(() => Item, { name: 'findOneItem', nullable: true })
   async findOne(@Args('id') id: number) {
     return await this.itemsService.findOne(id);
   }
 
-  @Mutation(() => Item, { name: 'updateItem' })
+  @Mutation(() => Item, { name: 'updateItem', nullable: true })
   async update(@Args('updateItemInput') updateItemInput: UpdateItemInput) {
     return await this.itemsService.update(updateItemInput.id, updateItemInput);
   }
 
-  @Mutation(() => Item, { name: 'removeItem' })
+  @Mutation(() => Item, { name: 'removeItem', nullable: true })
   async remove(@Args('id') id: number) {
     return await this.itemsService.remove(id);
   }

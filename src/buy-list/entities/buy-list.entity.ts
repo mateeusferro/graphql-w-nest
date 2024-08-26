@@ -10,7 +10,7 @@ export class BuyList implements BuyListPrisma {
     @Field(() => String)
     name: string
 
-    @Field(() => Item)
+    @Field(() => [Item])
     items: Item[]
 
     @Field(() => Date)

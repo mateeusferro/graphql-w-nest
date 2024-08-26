@@ -16,12 +16,15 @@ export class BuyListService {
   }
 
   async findAll(): Promise<BuyList[]> {
-    return this.prisma.buyList.findMany();
+    return this.prisma.buyList.findMany({
+      include: { items: true },
+    });
   }
 
   async findOne(id: number): Promise<BuyList | null> {
     return this.prisma.buyList.findUnique({
       where: { id },
+      include: { items: true },
     });
   }
 

@@ -4,6 +4,7 @@ import { UpdateItemInput } from './dto/update-item.input';
 import { Item } from './entities/item.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Items } from '@prisma/client';
+import { Summary } from './entities/summary.entity';
 
 @Injectable()
 export class ItemsService {
@@ -20,10 +21,20 @@ export class ItemsService {
     return this.prisma.items.findMany();
   }
 
-  async findOne(id: number): Promise<Items | null> {
-    return this.prisma.items.findUnique({
-      where: { id },
+  async findOne(buyListId: number): Promise<Items[] | null> {
+    return this.prisma.items.findMany({
+      where: { buyListId: buyListId },
     });
+  }
+
+  async summaryByCategoryAndStatus(id: number): Promise<Summary[] | null> {
+    return this.prisma.$queryRaw`
+    SELECT category, 
+    COUNT(CASE WHEN status = false THEN 1 END) as pendingItems,
+    COUNT(CASE WHEN status = true THEN 1 END) as purchasedItems
+    FROM Items
+    WHERE buyListId = ${id}
+    GROUP BY category;`;
   }
 
   async update(id: number, updateItemInput: UpdateItemInput): Promise<Item> {
